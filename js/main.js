@@ -1,5 +1,9 @@
-import $ from 'jquery';
-import _ from 'underscore';
-import moment from 'moment';
+import "angular";
+import "angular-ui-router";
+import config from './config';
 
-console.log('Hello, World');
+
+
+angular.module('app', ['ui.router'])
+
+.config(config);

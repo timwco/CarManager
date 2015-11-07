@@ -1,6 +1,14 @@
 // Put any @imports here
 // See Readme for a list of supported ones
+@import 'foundation';
+
 
 body {
   background: #e2ebf3;
+}
+
+footer {
+  text-align: center;
+  font-size: 10px;
+  padding: 25px 0;
 }
