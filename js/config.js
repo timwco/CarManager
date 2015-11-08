@@ -1,42 +1,30 @@
-import angular from 'angular';
 
-
-let config = function ($stateProvider, $urlRouterProvider) {
+let config = function ($stateProvider, $urlRouterProvider, BackandProvider) {
 
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('root', {
-      url: '',
       abstract: true,
-      views: {
-        'header': {
-          templateUrl: 'templates/header.tpl.html'
-        },
-        'footer' : {
-          templateUrl: 'templates/footer.tpl.html'
-        }
-      }
+      templateUrl: 'templates/layout.tpl.html'
     })
     .state('root.home', {
       url: '/',
-      views: {
-        'content@': {
-          templateUrl: 'templates/home.tpl.html'
-        }
-      }
+      templateUrl: 'templates/home.tpl.html'
     })
     .state('root.about', {
       url: '/about',
-      views: {
-        'content@': {
-          templateUrl: 'templates/about.tpl.html'
-        }
-      }
+      templateUrl: 'templates/about.tpl.html'
+    })
+    .state('root.register', {
+      url: '/register',
+      templateUrl: 'templates/register.tpl.html'
     });
+
+  BackandProvider.setAppName('carmanager');
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', 'BackandProvider'];
 
 
 export default config;

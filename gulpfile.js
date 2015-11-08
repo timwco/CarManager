@@ -83,7 +83,7 @@ gulp.task('browserify-test', function() {
 });
 
 gulp.task('style:js', function() {
-  return gulp.src('./js/**/*.js')
+  return gulp.src(['./js/**/*.js', '!./js/vendor/*'])
     .pipe(notifyError())
     .pipe(jscs())
     .pipe(jscs.reporter())
@@ -91,7 +91,7 @@ gulp.task('style:js', function() {
 });
 
 gulp.task('hint:js', function() {
-  return gulp.src('./js/**/*.js')
+  return gulp.src(['./js/**/*.js', '!./js/vendor/*'])
     .pipe(notifyError())
     .pipe(jshint({
       esnext: true, eqeqeq: true,

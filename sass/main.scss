@@ -7,6 +7,18 @@ body {
   background: #e2ebf3;
 }
 
+.mainContent {
+  width: 600px;
+  margin: 25px auto;
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
 footer {
   text-align: center;
   font-size: 10px;
