@@ -14,13 +14,19 @@ var config = function config($stateProvider, $urlRouterProvider, BackandProvider
     templateUrl: 'templates/layout.tpl.html'
   }).state('root.home', {
     url: '/',
-    templateUrl: 'templates/home.tpl.html'
+    templateUrl: 'templates/home.tpl.html',
+    controller: 'CarController'
   }).state('root.about', {
     url: '/about',
     templateUrl: 'templates/about.tpl.html'
   }).state('root.register', {
     url: '/register',
-    templateUrl: 'templates/register.tpl.html'
+    templateUrl: 'templates/register.tpl.html',
+    controller: 'RegisterController'
+  }).state('root.addCar', {
+    url: '/add',
+    templateUrl: 'templates/addCar.tpl.html',
+    controller: 'CarController'
   });
 
   BackandProvider.setAppName('carmanager');
@@ -32,6 +38,50 @@ exports['default'] = config;
 module.exports = exports['default'];
 
 },{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function CarController($scope, CarService, $state) {
+
+  CarService.getCars().then(function (response) {
+    $scope.cars = response.data.results;
+  });
+
+  $scope.addCar = function (car) {
+    CarService.addCar(car).then(function (data) {
+      $state.go('root.home');
+    });
+  };
+}
+
+CarController.$inject = ['$scope', 'CarService', '$state'];
+
+exports['default'] = CarController;
+module.exports = exports['default'];
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function RegisterController($scope) {
+
+  $scope.createUser = function (user) {
+    console.log(user);
+  };
+}
+
+RegisterController.$inject = ['$scope'];
+
+exports['default'] = RegisterController;
+module.exports = exports['default'];
+
+},{}],4:[function(require,module,exports){
 "use strict";
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -48,9 +98,56 @@ var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
 
-angular.module('app', ['ui.router', 'backand']).config(_config2["default"]);
+// Controllers
 
-},{"./config":1,"./vendor/backand":3,"angular":6,"angular-ui-router":4}],3:[function(require,module,exports){
+var _controllersRegister = require('./controllers/register');
+
+var _controllersRegister2 = _interopRequireDefault(_controllersRegister);
+
+var _controllersCar = require('./controllers/car');
+
+var _controllersCar2 = _interopRequireDefault(_controllersCar);
+
+// Services
+
+var _servicesCar = require('./services/car');
+
+var _servicesCar2 = _interopRequireDefault(_servicesCar);
+
+// Our Application Setup
+angular.module('app', ['ui.router', 'backand']).constant('PARSE', {
+  URL: 'https://api.parse.com/1/',
+  CONFIG: {
+    headers: {
+      'X-Parse-Application-Id': 'vGVew7j7wAC76IoYUeIbNeqRD9BIgCJxPQKSh1wA',
+      'X-Parse-REST-API-Key': 'a2pzTvhaEb6AEgmOQlDUSbwhyQNvM3n52QqDPlNi'
+    }
+  }
+}).controller('CarController', _controllersCar2["default"]).controller('RegisterController', _controllersRegister2["default"]).service('CarService', _servicesCar2["default"]).config(_config2["default"]);
+
+},{"./config":1,"./controllers/car":2,"./controllers/register":3,"./services/car":5,"./vendor/backand":6,"angular":9,"angular-ui-router":7}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+function CarService($http, PARSE) {
+
+  this.getCars = function () {
+    return $http.get(PARSE.URL + 'classes/car', PARSE.CONFIG);
+  };
+
+  this.addCar = function (car) {
+    return $http.post(PARSE.URL + 'classes/car', car, PARSE.CONFIG);
+  };
+}
+
+CarService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = CarService;
+module.exports = exports['default'];
+
+},{}],6:[function(require,module,exports){
 /*
 * Angular SDK to use with backand 
 * @version 1.8.0 - 2015-09-20
@@ -267,7 +364,7 @@ exports["default"] = (function () {
 ;
 module.exports = exports["default"];
 
-},{}],4:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -4638,7 +4735,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],5:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.7
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -33543,11 +33640,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":5}]},{},[2])
+},{"./angular":8}]},{},[4])
 
 
 //# sourceMappingURL=main.js.map

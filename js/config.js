@@ -10,7 +10,8 @@ let config = function ($stateProvider, $urlRouterProvider, BackandProvider) {
     })
     .state('root.home', {
       url: '/',
-      templateUrl: 'templates/home.tpl.html'
+      templateUrl: 'templates/home.tpl.html',
+      controller: 'CarController'
     })
     .state('root.about', {
       url: '/about',
@@ -18,7 +19,13 @@ let config = function ($stateProvider, $urlRouterProvider, BackandProvider) {
     })
     .state('root.register', {
       url: '/register',
-      templateUrl: 'templates/register.tpl.html'
+      templateUrl: 'templates/register.tpl.html',
+      controller: 'RegisterController'
+    })
+    .state('root.addCar', {
+      url: '/add',
+      templateUrl: 'templates/addCar.tpl.html',
+      controller: 'CarController'
     });
 
   BackandProvider.setAppName('carmanager');

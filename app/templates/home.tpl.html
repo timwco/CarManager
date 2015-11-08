@@ -1,1 +1,18 @@
 <h3>Welcome to Car Manager!</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Make</th>
+      <th>Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="car in cars">
+      <td>{{ car.year }}</td>
+      <td>{{ car.make }}</td>
+      <td>{{ car.model }}</td>
+    </tr>
+  </tbody>
+</table>

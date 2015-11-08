@@ -6401,6 +6401,9 @@ body {
   to {
     opacity: 1; } }
 
+table {
+  width: 100%; }
+
 footer {
   text-align: center;
   font-size: 10px;
